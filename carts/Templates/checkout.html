@@ -1,0 +1,344 @@
+{% extends 'base.html' %}
+    {% block content %}
+        {% load static %}
+
+    <section class="jarallax py-5">
+      
+      <div class="hero-content py-0 py-md-5">
+        <div class="container-lg d-flex flex-column d-md-block align-items-center">
+          <nav class="breadcrumb">
+            <a class="breadcrumb-item nav-link" href="#">Home</a>
+            <a class="breadcrumb-item nav-link" href="#">Pages</a>
+            <span class="breadcrumb-item active" aria-current="page">Checkout</span>
+          </nav>
+          <h1>Checkout</h1>
+        </div>
+      </div>
+    <div id="jarallax-container-0" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; overflow: hidden; z-index: -100; clip-path: polygon(0px 0px, 100% 0px, 100% 100%, 0px 100%);"><img src="{% static 'images/banner-1.jpg' %}" class="jarallax-img" style="object-fit: cover; object-position: 50% 50%; max-width: none; position: fixed; top: 0px; left: 0px; width: 1114px; height: 719.219px; overflow: hidden; pointer-events: none; transform-style: preserve-3d; backface-visibility: hidden; will-change: transform, opacity; margin-top: 212.391px; transform: translate3d(0px, -233.391px, 0px);"></div></section>
+
+    <section class="shopify-cart checkout-wrap py-5">
+      <div class="container-lg">
+        <div class="row g-5">
+          <div class="col-md-5 col-lg-4 order-md-last">
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+              <span class="text-primary"><svg width="26" height="26"><use xlink:href="#cart"></use></svg> Your cart</span>
+              <span class="badge bg-primary rounded-pill">{{cart_count}}</span>
+            </h4>
+            <ul class="list-group mb-3">
+
+                <div class="table-responsive cart">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col" class="card-title text-uppercase text-muted">Product</th>
+                        <th scope="col" class="card-title text-uppercase text-muted">Quantity</th>
+                        <th scope="col" class="card-title text-uppercase text-muted">Subtotal</th>
+                        <!-- <th scope="col" class="card-title text-uppercase text-muted">Each</th> -->
+                        <!-- <th scope="col" class="card-title text-uppercase text-muted"></th> -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for i in cart_items %}
+                      <tr>
+                        <td scope="row" class="py-1">
+                          <div class="cart-info d-flex flex-wrap align-items-center mb-1">
+                            <div class="col-lg-1">
+                              <div class="card-image">
+                                <a href="{{ i.product.single_product_url }}"><img src="{{i.product.image.url}}" alt="product name" class="img-fluid"></a> <!--this image.url comes from model.py of product ... this url is from that model not from static file  or db media image pathfolder. -->
+                              </div>
+                            </div>
+                            <div class="col-lg-9">
+                              <div class="card-detail ps-3">
+                                <h5 class="card-title"> 
+                                  <a href="{{ i.product.single_product_url }}" class="text-decoration-none" >{{i.product.product_name}}</a> <!--here single_page_url comes from store model .. for redirecting to that specific product -->
+                                  <p class="">
+                                    {% if i.variations.all %}
+                                      {% for item in i.variations.all %}
+                                        {{ item.variation_category | capfirst }} : {{ item.variation_value | capfirst }} <br>
+                                      {% endfor %}
+                                    {% endif %}
+                                  </p>
+                                </h5>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="py-4">
+                          <div class="input-group product-qty w-50">
+                            <span class="input-group-btn">
+                              <!-- <a href="{% url 'remove_cart' i.product.id i.id %}" type="button" class="quantity-left-minus btn btn-light btn-number" data-type="minus">
+                                <svg width="16" height="16">
+                                  <use xlink:href="#minus"></use>
+                                </svg>
+                              </a> -->
+                              </a>
+                            </span>
+                            <input type="text" id="quantity" name="quantity" class="form-control input-number text-center" value="{{i.quantity}}">
+                            <span class="input-group-btn">
+                                <form action="{% url 'add_cart' i.product.id %}" method ="post">
+                                  {% csrf_token %}
+                                  {% for item in i.variations.all %}
+                                  <input type="hidden" name="{{item.variation_category | lower}}" value="item.variation_value | capfirst">
+                                  {% endfor %}
+                                  <!-- <button type="submit" class="quantity-right-plus btn btn-light btn-number" data-type="plus" data-field="">
+                                    <svg width="16" height="16">
+                                      <use xlink:href="#plus"></use>
+                                    </svg>
+                                  </button> -->
+                                </form>
+                              </span>
+                          </div>
+                        </td>
+                        <td class="py-4">
+                          <div class="total-price">
+                            <span class="money text-dark">${{i.sub_total}}</span> <br>
+                            <span class="money text-dark"><small><b>Each</b> ${{i.product.price}}</small></span>
+
+                          </div>
+                        </td>
+
+                        <!-- <td class="py-4">
+                          <div class="cart-remove">
+                            <a href="{% url 'remove_cart_item' i.product.id i.id %}" onclick="return confirm('Do you want to remove this item from your cart ?')">
+                              <svg width="24" height="24">
+                                <use xlink:href="#trash"></use>
+                              </svg>
+                            </a>
+                          </div>
+                        </td> -->
+                      </tr>
+                      {% endfor %}
+
+                    </tbody>
+                  </table>
+               </div>
+              <!-- <li class="list-group-item d-flex justify-content-between lh-sm">
+                <div>
+                  <h6 class="my-0">Product name</h6>
+                  <small class="text-body-secondary">Brief description</small>
+                </div>
+                <span class="text-body-secondary">$12</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between lh-sm">
+                <div>
+                  <h6 class="my-0">Second product</h6>
+                  <small class="text-body-secondary">Brief description</small>
+                </div>
+                <span class="text-body-secondary">$8</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between lh-sm">
+                <div>
+                  <h6 class="my-0">Third item</h6>
+                  <small class="text-body-secondary">Brief description</small>
+                </div>
+                <span class="text-body-secondary">$5</span>
+              </li>
+
+              
+              <li class="list-group-item d-flex justify-content-between bg-body-tertiary">
+                <div class="text-success">
+                  <h6 class="my-0">Promo code</h6>
+                  <small>EXAMPLECODE</small>
+                </div>
+                <span class="text-success">−$5</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                <span>Total (USD)</span>
+                <strong>$20</strong>
+              </li> -->
+            </ul>
+    
+            <!-- <form class="card p-2">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Promo code">
+                <button type="submit" class="btn btn-secondary">Redeem</button>
+              </div>
+            </form> -->
+            <div class="d-flex button-wrap row g-2">
+              <div class="col-md-6 ">
+                  <a href="{% url 'mycart' %}"><button class="btn btn-dark py-3 px-4 text-uppercase btn-rounded-none w-100">Go To Cart</button></a>
+              </div>
+              <div class="col-md-6">
+                  <a href="{% url 'store' %}"><button class="btn btn-dark py-3 px-4 text-uppercase btn-rounded-none w-100">Continue Shopping</button></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-7 col-lg-8">
+            <h4 class="mb-3">Billing address</h4>
+            <form class="needs-validation" action="{% url 'place_order' %}" method="POST">
+              {% csrf_token %} 
+              <div class="row g-3">
+                <div class="col-sm-6">
+                  <label for="firstName" class="form-label"><b style="opacity: 0.8;">First Name</b></label>
+                  <input type="text" class="form-control" id="firstName" placeholder="" value="" required name="first_name">
+                  <!-- <div class="invalid-feedback">
+                    Valid first name is required.
+                  </div> -->
+                <div data-lastpass-icon-root="" style="position: relative !important; height: 0px !important; width: 0px !important; float: left !important;"></div></div>
+    
+                <div class="col-sm-6">
+                  <label for="lastName" class="form-label"><b style="opacity: 0.8;">Last Name</b></label>
+                  <input type="text" class="form-control" id="lastName" placeholder="" value="" required name="last_name">
+                  <!-- <div class="invalid-feedback">
+                    Valid last name is required.
+                  </div> -->
+                </div>
+    
+                <div class="col-12">
+                  <label for="username" class="form-label"><b style="opacity: 0.8;">Phone Number</b></label>
+                  <div class="input-group has-validation">
+                    <span class="input-group-text">&phone;</span>
+                    <input type="text" class="form-control" id="username" placeholder="10-digit mobile number with prefixes" name="phone" required >
+                  <!-- <div class="invalid-feedback">
+                      Your Phone Number is required.
+                    </div> -->
+                  <div data-lastpass-icon-root="" style="position: relative !important; height: 0px !important; width: 0px !important; float: left !important;"></div></div>
+                </div>
+    
+                <div class="col-12">
+                  <label for="email" class="form-label"><b style="opacity: 0.8;">Email</b></label>
+                  <input type="email" class="form-control" id="email" placeholder="xyz@gmail.com" required name="email" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpiYmZkZTQxOS00ZGRkLWU5NDYtOWQ2MC05OGExNGJiMTA3N2YiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RDAyNDkwMkRDOTIyMTFFNkI0MzFGRTk2RjM1OTdENTciIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RDAyNDkwMkNDOTIyMTFFNkI0MzFGRTk2RjM1OTdENTciIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKFdpbmRvd3MpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6OTU2NTE1NDItMmIzOC1kZjRkLTk0N2UtN2NjOTlmMjQ5ZGFjIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOmJiZmRlNDE5LTRkZGQtZTk0Ni05ZDYwLTk4YTE0YmIxMDc3ZiIv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&quot;) !important; background-repeat: no-repeat; background-size: 20px; background-position: 97% center; cursor: auto;" data-temp-mail-org="0">
+                  <!-- <div class="invalid-feedback">
+                    Please enter a valid email address for shipping updates.
+                  </div> -->
+                </div>
+    
+                <div class="col-12">
+                  <label for="address" class="form-label"><b style="opacity: 0.8;">Flat, House no, Building, Company, Apartment</b></label>
+                  <input type="text" class="form-control" id="address"  required="" name="address1">
+                  <!-- <div class="invalid-feedback">
+                    Please enter your shipping address.
+                  </div> -->
+                </div>
+    
+                <div class="col-12">
+                  <label for="address2" class="form-label"><b style="opacity: 0.8;">Area, Street, Sector, Village</b></span></label>
+                  <input type="text" class="form-control" id="address2"  name="address2">
+                </div>
+    
+                <div class="col-md-3">
+                  <label for="country" class="form-label"><b style="opacity: 0.8;">Country</b></label>
+                  <select class="form-select" id="country" required="" name="country">
+                    <option value="" selected disabled>Choose...</option>
+                    <option>India</option>
+                  </select>
+                  <!-- <div class="invalid-feedback">
+                    Please select a valid country.
+                  </div> -->
+                </div>
+    
+                <div class="col-md-3">
+                  <label for="state" class="form-label"><b style="opacity: 0.8;">State</b></label>
+                  <select class="form-select" id="state" required="" name="state">
+                    <option value="" selected disabled>Choose...</option>
+                    <option>ODISHA</option>
+                  </select>
+                  <!-- <div class="invalid-feedback">
+                    Please provide a valid state.
+                  </div> -->
+                </div>
+
+                <div class="col-md-3">
+                  <label for="state" class="form-label"><b style="opacity: 0.8;">City</b></label>
+                  <select class="form-select" id="state" required="" name="city">
+                    <option value="" selected disabled>Choose...</option>
+                    <option>BHUBANESWAR</option>
+                  </select>
+                  <!-- <div class="invalid-feedback">
+                    Please provide a valid state.
+                  </div> -->
+                </div>
+    
+                <div class="col-md-3">
+                  <label for="zip" class="form-label"><b style="opacity: 0.8;">Pincode</b></label>
+                  <input type="text" class="form-control" id="zip" placeholder="6-digit Pincode" name="pin" required>
+                  <!-- <div class="invalid-feedback">
+                    Zip code required.
+                  </div> -->
+                </div>
+              </div>
+
+              <div class="col-12 mt-3">
+                  <label for="address2" class="form-label"><b style="opacity: 0.8;">Order Handling Instructions <span class="text-body-secondary">(Optional)</span></b></label>
+                  <textarea name="order_note" class="form-control" placeholder="Notes, Preferences and more ..." id="address2"></textarea>
+              </div>
+    
+              <hr class="my-4">
+    
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="same-address">
+                <label class="form-check-label" for="same-address">Shipping address is the same as my billing address</label>
+              </div>
+    
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="save-info">
+                <label class="form-check-label" for="save-info">Save this information for next time</label>
+              </div>
+    
+              <hr class="my-4">
+    
+              <!-- <h4 class="mb-3">Payment</h4>
+    
+              <div class="my-3">
+                <div class="form-check">
+                  <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked="" required="">
+                  <label class="form-check-label" for="credit">Credit card</label>
+                </div>
+                <div class="form-check">
+                  <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required="">
+                  <label class="form-check-label" for="debit">Debit card</label>
+                </div>
+                <div class="form-check">
+                  <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" required="">
+                  <label class="form-check-label" for="paypal">PayPal</label>
+                </div>
+              </div>
+    
+              <div class="row gy-3">
+                <div class="col-md-6">
+                  <label for="cc-name" class="form-label">Name on card</label>
+                  <input type="text" class="form-control" id="cc-name" placeholder="" required="">
+                  <small class="text-body-secondary">Full name as displayed on card</small>
+                  <div class="invalid-feedback">
+                    Name on card is required
+                  </div>
+                <div data-lastpass-icon-root="" style="position: relative !important; height: 0px !important; width: 0px !important; float: left !important;"></div></div>
+    
+                <div class="col-md-6">
+                  <label for="cc-number" class="form-label">Credit card number</label>
+                  <input type="text" class="form-control" id="cc-number" placeholder="" required="">
+                  <div class="invalid-feedback">
+                    Credit card number is required
+                  </div>
+                </div>
+    
+                <div class="col-md-3">
+                  <label for="cc-expiration" class="form-label">Expiration</label>
+                  <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">
+                  <div class="invalid-feedback">
+                    Expiration date required
+                  </div>
+                </div>
+    
+                <div class="col-md-3">
+                  <label for="cc-cvv" class="form-label">CVV</label>
+                  <input type="text" class="form-control" id="cc-cvv" placeholder="" required="">
+                  <div class="invalid-feedback">
+                    Security code required
+                  </div>
+                </div>
+              </div>
+    
+              <hr class="my-4"> -->
+    
+              <button class="w-100 btn btn-primary btn-lg" type="submit" name="submit">Place Order</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+</body>
+
+        {% endblock content %} 

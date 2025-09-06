@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+    {% block content %}
+        {% load static %}
+
+  <section class="jarallax py-5">
+    
+    <div class="hero-content py-0 py-md-5">
+        <div class="container-lg d-flex flex-column d-md-block align-items-center">
+        <nav class="breadcrumb">
+          <a class="breadcrumb-item nav-link" href="#">Home</a>
+          <a class="breadcrumb-item nav-link" href="#">Pages</a>
+          <span class="breadcrumb-item active" aria-current="page">Cart</span>
+        </nav>
+        <h1>Cart</h1>
+      </div>
+    </div>
+  <div id="jarallax-container-0" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; overflow: hidden; z-index: -100; clip-path: polygon(0px 0px, 100% 0px, 100% 100%, 0px 100%);"><img src="{% static 'images/banner-1.jpg' %}" class="jarallax-img" style="object-fit: cover; object-position: 50% 50%; max-width: none; position: fixed; top: 0px; left: 0px; width: 1114px; height: 719.219px; overflow: hidden; pointer-events: none; transform-style: preserve-3d; backface-visibility: hidden; will-change: transform, opacity; margin-top: 212.391px; transform: translate3d(0px, -169.891px, 0px);"></div></section>
+
+  <section class="py-5">
+    <div class="container-lg">
+      <div class="row g-5">
+        <div class="col-md-8">
+        {% if not cart_items %}
+            <h2 class="text-center">Oops It Seems Like Your Shopping Cart is Empty</h2>
+            <div class="col-md-50 ">
+                <a href="{% url 'store' %}"><button class="btn btn-dark py-3 px-4 text-uppercase btn-rounded-none w-100">Continue Shopping</button></a>
+            </div>
+        {% else %}
+          <div class="table-responsive cart">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col" class="card-title text-uppercase text-muted">Product</th>
+                  <th scope="col" class="card-title text-uppercase text-muted">Quantity</th>
+                  <th scope="col" class="card-title text-uppercase text-muted">Subtotal</th>
+                  <!-- <th scope="col" class="card-title text-uppercase text-muted">Each</th> -->
+                  <th scope="col" class="card-title text-uppercase text-muted"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for i in cart_items %}
+                <tr>
+                  <td scope="row" class="py-1">
+                    <div class="cart-info d-flex flex-wrap align-items-center mb-2">
+                      <div class="col-lg-1">
+                        <div class="card-image">
+                          <a href="{{ i.product.single_product_url }}"><img src="{{i.product.image.url}}" alt="product name" class="img-fluid"></a> <!--this image.url comes from model.py of product ... this url is from that model not from static file  or db media image pathfolder. -->
+                        </div>
+                      </div>
+                      <div class="col-lg-9">
+                        <div class="card-detail ps-3">
+                          <h5 class="card-title"> 
+                            <a href="{{ i.product.single_product_url }}" class="text-decoration-none">{{i.product.product_name}}</a> <!--here single_page_url comes from store model .. for redirecting to that specific product -->
+                            <p class="">
+                              {% if i.variations.all %}
+                                {% for item in i.variations.all %}
+                                  {{ item.variation_category | capfirst }} : {{ item.variation_value | capfirst }} <br>
+                                {% endfor %}
+                              {% endif %}
+                            </p>
+                          </h5>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="py-4">
+                    <div class="input-group product-qty w-50">
+                      <span class="input-group-btn">
+                        <a href="{% url 'remove_cart' i.product.id i.id %}" type="button" class="quantity-left-minus btn btn-light btn-number" data-type="minus">
+                          <svg width="16" height="16">
+                            <use xlink:href="#minus"></use>
+                          </svg>
+                        </a>
+                        </a>
+                      </span>
+                      <input type="text" id="quantity" name="quantity" class="form-control input-number text-center" value="{{i.quantity}}">
+                      <span class="input-group-btn">
+                          <form action="{% url 'add_cart' i.product.id %}" method ="post">
+                            {% csrf_token %}
+                            {% for item in i.variations.all %}
+                            <input type="hidden" name="{{item.variation_category | lower}}" value="item.variation_value | capfirst">
+                            {% endfor %}
+                            <button type="submit" class="quantity-right-plus btn btn-light btn-number" data-type="plus" data-field="">
+                              <svg width="16" height="16">
+                                <use xlink:href="#plus"></use>
+                              </svg>
+                            </button>
+                          </form>
+                        </span>
+                    </div>
+                  </td>
+                  <td class="py-4">
+                    <div class="total-price">
+                      <span class="money text-dark">${{i.sub_total}}</span> <br>
+                      <span class="money text-dark"><small><b>Each</b> ${{i.product.price}}</small></span>
+
+                    </div>
+                  </td>
+
+                  <td class="py-4">
+                    <div class="cart-remove">
+                      <a href="{% url 'remove_cart_item' i.product.id i.id %}" onclick="return confirm('Do you want to remove this item from your cart ?')">
+                        <svg width="24" height="24">
+                          <use xlink:href="#trash"></use>
+                        </svg>
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                {% endfor %}
+
+              </tbody>
+            </table>
+          </div>
+          
+        </div>
+        <div class="col-md-4">
+          <div class="cart-totals bg-grey py-5">
+            <h4 class="text-dark pb-4">Cart Total</h4>
+            <div class="total-price pb-5">
+              <table cellspacing="0" class="table text-uppercase">
+
+                <tbody>
+                  <tr class="subtotal pt-2 pb-2 border-top border-bottom">
+                    <th>total</th>
+                    <td data-title="Subtotal">
+                      <span class="price-amount amount text-dark ps-5">
+                        <bdi>
+                          <span class="price-currency-symbol">$</span>{{total}}
+                        </bdi>
+                      </span>
+                    </td>
+                  </tr>
+
+
+                  <tr class="subtotal pt-2 pb-2 border-top border-bottom">
+                    <th>Gst <bdi style="color: rgb(14, 150, 14);">(18%)</bdi> </th>
+                    <td data-title="Subtotal">
+                      <span class="price-amount amount text-dark ps-5">
+                        <bdi>
+                          <span class="price-currency-symbol">$</span>{{tax}}
+                        </bdi>
+                      </span>
+                    </td>
+                  </tr>
+
+
+                  <tr class="order-total pt-2 pb-2 border-bottom">
+                    <th>SubTotal</th>
+                    <td data-title="Total">
+                      <span class="price-amount amount text-dark ps-5">
+                        <bdi>
+                          <span class="price-currency-symbol">$</span>{{grand_total}}
+                        </bdi>
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="button-wrap row g-2">
+            <div class="col-md-12 text-center">
+                <a href="#img-fluid w-50"><img src="{% static 'images/payments.png' %}" alt="" class="img-fluid w-50"></a>
+            </div>
+            <div class="col-md-6"><button type="submit" class="btn btn-dark py-3 px-4 text-uppercase btn-rounded-none w-100">Update Cart</button></div>
+            <div class="col-md-6">
+                <a href="{% url 'store' %}"><button class="btn btn-dark py-3 px-4 text-uppercase btn-rounded-none w-100">Continue Shopping</button></a>
+            </div>
+            <div class="col-md-12">
+                <a href="{% url 'checkout' %}"><button class="btn btn-primary py-3 px-4 text-uppercase btn-rounded-none w-100">Proceed to checkout</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+    {% endif %}
+    </div>
+  </section>
+
+        {% endblock content %} 

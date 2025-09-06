@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+    {% block content %}
+        {% load static %}
+
+
+<section class="section-conten padding-y bg mt-5 mb-5">
+
+<div class="container">
+	<div class="row">
+	{% include 'includes/dashboard_sidebar.html' %}
+	<main class="col-md-9">
+		<article class="card">
+		<header class="card-header">
+			<strong class="d-inline-block mr-3">Logged In : </strong>
+			<span>{{user.full_name}}</span>
+		</header>
+		<div class="card-body">
+			<div class="row"> 
+			
+                
+                <div class="col-md-6">
+                    <div class="card" style="text-align: center;">
+                        <div class="card-body">
+                            <h5 class="card-title mb-0 mt-2">Total Orders</h5>
+                            <h4 class="mb-0 mt-3">{{orders_count}}</h4>
+                            <a href="{% url 'my_orders' %}" class="mb-0 mt-2">View Orders</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card" style="text-align: center;">
+                        <div class="card-body">
+                            <img src="{{userprofile.profile_picture.url}}" alt="User pfp" width="49" height="48" style="border-radius: 50%;">
+                            <!-- <div><i class="fa-solid fa-user" width="500" height="500" style="border-radius: 50%;"></i></div> -->
+                            <p class="mb-0"> {{user.email}} </p>
+                            <p class="mb-0"> {{user.phone_number}} </p>
+                        </div>
+                    </div>
+                </div>
+
+
+
+			</div> <!-- row.// -->
+		</div> <!-- card-body .// -->
+		
+		</article> <!-- order-group.// --> 
+	</main>
+</div> <!-- row.// -->
+</div>
+</section>
+
+<footer class="section-footer border-top py-3">
+  <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+    <p class="mb-0">
+      &copy; Copyright 2019 All rights reserved
+    </p>
+    <a href="#" class="mt-2 mt-md-0">Terms and conditions</a>
+  </div>
+</footer>
+
+{% endblock content %} 

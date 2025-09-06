@@ -1,0 +1,216 @@
+{% extends 'pay_main.html' %}
+  {% block content %}
+    {% load static %}
+<body>
+    <div class="container">
+        <aside class="left-aside">
+            <div class="billing-address">
+                <h4>Delivering to Tushar</h4>
+                <!-- <p>1014, Near Sri Jaydev college of education and technology, Naharkanta, Haridaspur, banisahi, Hanuman Mandir, BHUBANESWAR, ODISHA, 752101, India</p> -->
+                <p>{{ order.full_name }}, {{ order.full_address }}, {{ order.city }}, {{ order.state }}, {{ order.pin }}, {{ order.country }} </p>
+                <p>{{ order.email }}</p>
+                <p>{{ order.phone }}</p>
+                {% if order.order_note %}
+                    <b>Order Note : </b> {{ order.order_note }}
+                {% endif %}
+                <a href="#">Change</a>
+                <a href="#" class="add-instructions">Add delivery instructions</a>
+            </div>
+            <div class="payment-options">
+                <h4>Payment Method</h4>
+                <div class="available-balance">
+                    <label>Your available balance</label>
+                    <input type="text" placeholder="Enter Code">
+                    <button>Apply</button>
+                </div>
+                <div class="payment-option">
+                    <input type="radio" name="payment" id="upi">
+                    <label for="upi"><b>UPI</b> <img src="{% static 'images/upi.png' %}" alt=""></label><br>
+                    <span class="bank-details" style="opacity: 0.6;">Bank of India *1752 🔒</span><br>
+                    <span class="unavailable"> <b>Unavailable</b>&nbsp; <a href="" style="color: rgb(14, 119, 204); text-decoration: none;">Why?</a></span>
+                </div>
+                <div class="payment-option">
+                    <input type="radio" name="payment" id="card">
+                    <label for="card"><b>Credit or debit card</b></label>
+                    <!-- <div class="card-logos">
+                        <img src="{% static 'images/visa-cd.png' %}" alt="Visa" >
+                        <img src="{% static 'images/master-cd.png' %}" alt="Visa" >
+                        <img src="{% static 'images/rupay.png' %}" alt="Visa" style="width: 64px; height: 22px;">
+                    </div> -->
+                    
+                    <a href="#" class="add-card">Add a credit or debit card | ZipnServe accepts all major & cards</a>
+                </div>
+                <div class="payment-option">
+                    <input type="radio" name="payment" id="netbanking" disabled>
+                    <label for="netbanking"><b>Net Banking</b></label>
+                    <select>
+                        <option>Choose an option</option>
+                    </select>
+                </div>
+                <div class="payment-option">
+                    <input type="radio" name="payment" id="bhim" disabled>
+                    <label for="bhim"><b>BHIM UPI</b> 🔒</label>
+                    <span class="unavailable"> <b>Unavailable</b>&nbsp; <a href="" style="color: rgb(14, 119, 204); text-decoration: none;">Why?</a></span>
+                </div>
+                <div class="payment-option">
+                    <input type="radio" name="payment" id="emi" disabled>
+                    <label for="emi"><b>EMI</b> 🔒<span class="unavailable"><b>Unavailable</b>&nbsp; <a href="" style="color: rgb(14, 119, 204); text-decoration: none;">Why?</a></span></label>
+                </div>
+            </div>
+            <div class="review-shipping">
+                <h4>Review items and shipping details</h4>
+                <div class="table-responsive cart">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col" class="card-title text-uppercase text-muted">Product</th>
+                        <th scope="col" class="card-title text-uppercase text-muted">Quantity</th>
+                        <th scope="col" class="card-title text-uppercase text-muted">Subtotal</th>
+                        <!-- <th scope="col" class="card-title text-uppercase text-muted">Each</th> -->
+                        <!-- <th scope="col" class="card-title text-uppercase text-muted"></th> -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for i in cart_items %}
+                      <tr>
+                        <td scope="row" class="py-1">
+                          <div class="cart-info d-flex flex-wrap align-items-center mb-1">
+                            <div class="col-lg-1">
+                              <div class="card-image">
+                                <a href="{{ i.product.single_product_url }}"><img src="{{i.product.image.url}}" alt="product name" class="img-fluid"></a> <!--this image.url comes from model.py of product ... this url is from that model not from static file  or db media image pathfolder. -->
+                              </div>
+                            </div>
+                            <div class="col-lg-9">
+                              <div class="card-detail ps-3">
+                                <h5 class="card-title"> 
+                                  <a href="{{ i.product.single_product_url }}" class="text-decoration-none" >{{i.product.product_name}}</a> <!--here single_page_url comes from store model .. for redirecting to that specific product -->
+                                  <p class="">
+                                    {% if i.variations.all %}
+                                      {% for item in i.variations.all %}
+                                        {{ item.variation_category | capfirst }} : {{ item.variation_value | capfirst }} <br>
+                                      {% endfor %}
+                                    {% endif %}
+                                  </p>
+                                </h5>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="py-4">
+                          <div class="input-group product-qty w-50">
+                            <span class="input-group-btn">
+                              <!-- <a href="{% url 'remove_cart' i.product.id i.id %}" type="button" class="quantity-left-minus btn btn-light btn-number" data-type="minus">
+                                <svg width="16" height="16">
+                                  <use xlink:href="#minus"></use>
+                                </svg>
+                              </a> -->
+                              </a>
+                            </span>
+                            <input type="text" id="quantity" name="quantity" class="form-control input-number text-center" value="{{i.quantity}}">
+                            <span class="input-group-btn">
+                                <form action="{% url 'add_cart' i.product.id %}" method ="post">
+                                  {% csrf_token %}
+                                  {% for item in i.variations.all %}
+                                  <input type="hidden" name="{{item.variation_category | lower}}" value="item.variation_value | capfirst">
+                                  {% endfor %}
+                                  <!-- <button type="submit" class="quantity-right-plus btn btn-light btn-number" data-type="plus" data-field="">
+                                    <svg width="16" height="16">
+                                      <use xlink:href="#plus"></use>
+                                    </svg>
+                                  </button> -->
+                                </form>
+                              </span>
+                          </div>
+                        </td>
+                        <td class="py-4">
+                          <div class="total-price">
+                            <span class="money text-dark">${{i.sub_total}}</span> <br>
+                            <span class="money text-dark"><small><b>Each</b> ${{i.product.price}}</small></span>
+
+                          </div>
+                        </td>
+
+                        <!-- <td class="py-4">
+                          <div class="cart-remove">
+                            <a href="{% url 'remove_cart_item' i.product.id i.id %}" onclick="return confirm('Do you want to remove this item from your cart ?')">
+                              <svg width="24" height="24">
+                                <use xlink:href="#trash"></use>
+                              </svg>
+                            </a>
+                          </div>
+                        </td> -->
+                      </tr>
+                      {% endfor %}
+
+                    </tbody>
+                  </table>
+               </div>
+            </div>
+        </aside>
+        <aside class="right-aside">
+            <!-- <button class="use-payment">Use this payment method</button>
+            <div class="summary-item">Items: --</div>
+            <div class="summary-item">Delivery: <span class="free-delivery">FREE</span></div>
+            <div class="summary-item">Order Total: --</div> -->
+          <div class="col-md-12">
+                <div class="cart-totals bg-grey py-6">
+                    <h4 class="text-dark pb-10">Cart Total</h4>
+                    <div class="total-price pb-0">
+                        <table cellspacing="0" class="table text-uppercase">
+
+                            <tbody>
+                            <tr class="subtotal pt-2 pb-2 border-top border-bottom">
+                                <th>total</th>
+                                <td data-title="Subtotal">
+                                <span class="price-amount amount text-dark ps-5">
+                                    <bdi>
+                                    <span class="price-currency-symbol">$</span>{{total}}
+                                    </bdi>
+                                </span>
+                                </td>
+                            </tr>
+
+
+                            <tr class="subtotal pt-2 pb-2 border-top border-bottom">
+                                <th>Gst <bdi style="color: rgb(14, 150, 14);">(18%)</bdi> </th>
+                                <td data-title="Subtotal">
+                                <span class="price-amount amount text-dark ps-5">
+                                    <bdi>
+                                    <span class="price-currency-symbol">$</span>{{tax}}
+                                    </bdi>
+                                </span>
+                                </td>
+                            </tr>
+
+
+                            <tr class="order-total pt-2 pb-2 border-bottom">
+                                <th>SubTotal</th>
+                                <td data-title="Total">
+                                <span class="price-amount amount text-dark ps-5">
+                                    <bdi>
+                                    <span class="price-currency-symbol">$</span>{{grand_total}}
+                                    </bdi>
+                                </span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="button-wrap row g-2">
+                            <div class="col-md-12 text-center">
+                                <a href="#a"><img src="{% static 'images/payments.png' %}" alt="" class="img-fluid w-50"></a>
+                            </div>
+                            <div class="col-md-12">
+                               <!-- <a href=""><button class="btn btn-primary py-3 px-3 text-uppercase btn-rounded-none w-100">Pay with Paypal</button></a> -->
+                              </div>
+                                <div id="paypal-button-container"></div>
+                                <!--payment intigrated in footer2.html, which is present in inside includes and connected with pay-main.html page (which is my second base html page after base.html .. which can only be named in base or main ) ... -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+</body>
+
+
+{% endblock content %}

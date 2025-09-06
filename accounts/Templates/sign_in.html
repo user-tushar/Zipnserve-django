@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <style>
+:root {
+    --primary-color: #4EA685;
+    --secondary-color: #57B894;
+    --black: #000000;
+    --white: #ffffff;
+    --gray: #efefef;
+    --gray-2: #757575;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
+
+* {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100vh;
+    overflow: hidden;
+}
+
+.container {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    height: 100vh;
+    justify-content: flex-end; /* Move form to the right */
+}
+
+.col {
+    width: 50%;
+}
+
+.align-items-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.form-wrapper {
+    width: 100%;
+    max-width: 28rem;
+}
+
+.form {
+    padding: 1rem;
+    background-color: var(--white);
+    border-radius: 1.5rem;
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    transform: scale(1);
+}
+
+.input-group {
+    position: relative;
+    width: 100%;
+    margin: 1rem 0;
+}
+
+.input-group i {
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    font-size: 1.4rem;
+    color: var(--gray-2);
+}
+
+.input-group input {
+    width: 100%;
+    padding: 1rem 3rem;
+    font-size: 1rem;
+    background-color: var(--gray);
+    border-radius: .5rem;
+    border: 0.125rem solid var(--white);
+    outline: none;
+}
+
+.input-group input:focus {
+    border: 0.125rem solid var(--primary-color);
+}
+
+.form button {
+    cursor: pointer;
+    width: 100%;
+    padding: .6rem 0;
+    border-radius: .5rem;
+    border: none;
+    background-color: var(--primary-color);
+    color: var(--white);
+    font-size: 1.2rem;
+    outline: none;
+}
+
+.form p {
+    margin: 1rem 0;
+    font-size: .7rem;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    z-index: 7;
+    animation: slideText 1s ease-in-out forwards;
+    text-align: center;
+}
+
+.text h2 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin: 2rem 0;
+}
+
+.text p {
+    font-weight: 600;
+}
+
+.container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 50%;
+    height: 100vh;
+    width: 300vw;
+    background-image: linear-gradient(-45deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    z-index: 6;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-bottom-right-radius: max(50vw, 50vh);
+    border-top-left-radius: max(50vw, 50vh);
+    animation: slideBackground 1s ease-in-out forwards;
+}
+
+@keyframes slideBackground {
+    0% {
+        transform: translate(100%, 0);
+    }
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+@keyframes slideText {
+    0% {
+        transform: translateX(-250%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@media only screen and (max-width: 425px) {
+    .container::before {
+        height: 100vh;
+        border-bottom-right-radius: 0;
+        border-top-left-radius: 0;
+        z-index: 0;
+        transform: none;
+        right: 0;
+        animation: none;
+    }
+
+    .col {
+        width: 100%;
+        position: absolute;
+        padding: 2rem;
+        background-color: var(--white);
+        border-top-left-radius: 2rem;
+        border-top-right-radius: 2rem;
+        transform: translateY(0);
+    }
+
+    .row {
+        align-items: flex-end;
+        justify-content: flex-end;
+    }
+
+    .form {
+        box-shadow: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .text {
+        margin: 0;
+        position: relative; /* Adjust for mobile */
+        width: auto;
+        height: auto;
+        z-index: 1;
+        animation: none; /* Disable animation on mobile for simplicity */
+    }
+
+    .text p {
+        display: none;
+    }
+
+    .text h2 {
+        margin: .5rem;
+        font-size: 2rem;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col align-items-center flex-col">
+                
+                {% if request.GET.command == 'verification' %}
+            
+                <div class="form-wrapper align-items-center" style="width:70%; max-width:900px; margin:auto;">
+                    <div style="padding:12px 40px 12px 20px; margin:10px 0; border-radius:6px; background-color:#d1ecf1; color:#0c5460; border:1px solid #bee5eb; position:relative;">
+                        Thank you for Your registration. We have sent a Verification message to your email [{{ request.GET.email }}]
+                        <br><br>
+                        Already Varified ? <a href="{% url 'signin' %}" style="text-decoration: none; color: #0875b9;">Sign in</a>
+                        <span style="position:absolute; right:15px; top:8px; cursor:pointer; font-size:20px;" onclick="this.parentElement.style.display='none';">&times;</span>
+                    </div>    
+                </div>
+
+                {% else %}
+
+                <div class="form-wrapper align-items-center">
+                    <form action="{% url 'signin' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="form">
+                            <h2>Log In</h2>
+                            <div class="input-group">
+                                <i class='bx bxs-user'></i>
+                                <input type="email" placeholder="Email" name="email" required>
+                            </div>
+                            <div class="input-group">
+                                <i class='bx bxs-lock-alt'></i>
+                                <input type="password" placeholder="Password" name="password" required>
+                            </div>
+                            <button type="submit">Sign in</button>
+                            <p>
+                                <a href="{% url 'forgotPassword' %}" style="text-decoration: none;"><b style="font-size: larger; color: #053553;">Forgot password?</b></a>
+                            </p>
+                            <p>
+                                <span style="font-size: larger;">Don't have an account?</span>
+                                <b class="pointer" style="font-size: larger; color: #1DA1F2;">
+                                    <a href="{% url 'signup' %}" style="text-decoration: none;">Sign up here</a>
+                                </b>
+                            </p>
+                        </div>
+                    </form>
+                </div><br><br>
+                {% include 'includes/alerts.html' %}
+            </div>
+            {% endif %}
+        </div>
+        <div class="row content-row">
+            <div class="col align-items-center flex-col">
+                <div class="text">
+                    <h2>Welcome 🙂</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

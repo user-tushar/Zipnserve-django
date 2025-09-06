@@ -1,0 +1,259 @@
+body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e7e7e7;
+            color: #111;
+            font-size: 14px;
+        }
+        header {
+            background-color: #dbb63c;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 2%;
+            border-bottom: 1px solid #ccc;
+        }
+        .logo img {
+            height: 40px;
+        }
+        .checkout-title {
+            font-size: 25px;
+            color: #1a303b;
+        }
+        #t5544t {
+            height: 20px;
+            width: 20px;
+            color: #1a303b;
+        }
+        .container {
+            display: flex;
+            justify-content: center; /* Changed to center to pull right aside closer */
+            padding: 0 2%;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            gap: 10px; /* Reduced gap to bring right aside closer to left */
+        }
+        .left-aside {
+            /* margin-left: 20px; */
+            width: 65%;
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .billing-address, .payment-options {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            background-color: #fff;
+        }
+        .review-shipping {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fff;
+        }
+        .review-shipping h4 {
+            margin-left: 16px;
+            margin-top: 10px;
+
+        }
+        .billing-address p {
+            margin: 0 0 5px;
+            font-size: 15px;
+        }
+        .billing-address a, .billing-address p.add-instructions {
+            color: #0066c0;
+            text-decoration: none;
+            font-size: 14px;
+            display: block;
+            margin-top: 5px;
+        }
+        .payment-options h3 {
+            font-size: 16px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        .available-balance {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #fffaf0;
+            border: 1px dashed #ddd;
+        }
+        .available-balance input {
+            padding: 5px;
+            width: 150px;
+            margin-right: 10px;
+            border: 1px solid #a6a6a6;
+            border-radius: 3px;
+        }
+        .available-balance button {
+            padding: 5px 10px;
+            background-color: #f7ca00;
+            border: 1px solid #a88734;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .payment-option {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #fffaf0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .payment-option input {
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        .bank-details {
+            margin-left: 10px;
+            color: #111;
+        }
+        .card-logos img {
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+        .add-card {
+            color: #0066c0;
+            text-decoration: none;
+            font-size: 12px;
+            display: block;
+            margin-top: 5px;
+        }
+        .unavailable {
+            color: #565959;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+        .right-aside {
+            width: 28%;
+            height: 390px;
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .use-payment {
+            width: 100%;
+            padding: 10px;
+            background-color: #f7ca00;
+            border: 1px solid #a88734;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        .summary-item {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        .free-delivery {
+            color: #008a00;
+        }
+        footer {
+      background-color: #232f3e;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 10px 0;
+    }
+
+    .footer-top {
+      background-color: #37475a;
+      padding: 5px 0;
+    }
+
+    .footer-top a {
+      color: #ddd;
+      text-decoration: none;
+    }
+
+    .footer-middle {
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .logo-img {
+      height: 30px;
+      margin-right: 10px;
+    }
+
+    .footer-middle a {
+      color: #ddd;
+      text-decoration: none;
+      margin: 0 15px;
+    }
+
+    .footer-bottom {
+      background-color: #131921;
+      padding: 10px 0;
+      font-size: 12px;
+    }
+
+    .footer-bottom a {
+      color: #969696;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    .footer-bottom p {
+      margin: 5px 0;
+      color: #969696;
+    }
+
+    /*  */
+    
+    /*  */
+        @media (max-width: 1024px) {
+            .left-aside {
+                margin-left: 20px;
+                width: 100%;
+            }
+            .right-aside {
+                width: 100%;
+                height: auto;
+                margin-top: 20px; /* Added spacing when stacked */
+            }
+            .payment-option input {
+                display: block;
+                margin-bottom: 5px;
+            }
+            .bank-details, .unavailable, .card-logos, .add-card {
+                display: block;
+                margin-left: 0;
+                margin-top: 5px;
+            }
+            .available-balance input {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            .available-balance button {
+                width: 100%;
+            }
+            .review-shipping {
+                margin-bottom: 20px;
+            }
+        }
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .logo, .checkout-title, #t5544t {
+                margin: 5px 0;
+            }
+            .checkout-title {
+                font-size: 20px;
+            }
+            #t5544t i {
+                font-size: 16px;
+            }
+        }

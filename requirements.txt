@@ -1,0 +1,12 @@
+# pip install -r requirements.txt
+# By running above command, you'll able to install all the requirement packages given below ..
+
+
+# pip install django
+django
+# pip install pillow
+pillow
+# pip install requests
+requests
+# pip install django-admin-thumbnails
+django-admin-thumbnails

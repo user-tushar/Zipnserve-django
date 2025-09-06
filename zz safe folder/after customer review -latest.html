@@ -1,0 +1,744 @@
+{% extends 'base.html' %}
+    {% block content %}
+        {% load static %}
+
+<!-- ========================================================================= -->
+    <section id="selling-product" class="single-product mt-0 mt-md-5">
+      <div class="container-lg">
+        <nav class="breadcrumb">
+          <a class="breadcrumb-item" href="#">Home</a>
+          <a class="breadcrumb-item" href="#">Pages</a>
+          <span class="breadcrumb-item active" aria-current="page">Single Product</span>
+        </nav>
+        <div class="row g-5">
+          <div class="col-lg-7">
+            <div class="row flex-column-reverse flex-lg-row">
+              <div class="col-md-12 col-lg-2">
+                <!-- product-thumbnail-slider -->
+                <div class="swiper product-thumbnail-slider swiper-initialized swiper-backface-hidden swiper-thumbs swiper-vertical">
+                  <div class="swiper-wrapper" id="swiper-wrapper-6a104ff237bbbd119" aria-live="polite" style="transform: translate3d(0px, 0px, 0px);">
+                    <div class="swiper-slide swiper-slide-visible swiper-slide-active swiper-slide-thumb-active" style="height: 68px; margin-bottom: 20px;" role="group" aria-label="1 / 5">
+                      <img src="{{single_prodt.image.url}}" alt="" class="thumb-image img-fluid">
+                    </div>
+                    <div class="swiper-slide swiper-slide-visible swiper-slide-next" style="height: 68px; margin-bottom: 20px;" role="group" aria-label="2 / 5">
+                      <img src="{{single_prodt.image.url}}" alt="" class="thumb-image img-fluid">
+                    </div>
+                    <div class="swiper-slide swiper-slide-visible" style="height: 68px; margin-bottom: 20px;" role="group" aria-label="3 / 5">
+                      <img src="{{single_prodt.image.url}}" alt="" class="thumb-image img-fluid">
+                    </div>
+                    <div class="swiper-slide swiper-slide-visible" style="height: 68px; margin-bottom: 20px;" role="group" aria-label="4 / 5">
+                      <img src="{{single_prodt.image.url}}" alt="" class="thumb-image img-fluid">
+                    </div>
+                    <div class="swiper-slide swiper-slide-visible" role="group" aria-label="5 / 5" style="height: 68px; margin-bottom: 20px;">
+                      <img src="{{single_prodt.image.url}}" alt="" class="thumb-image img-fluid">
+                    </div>
+                  </div>
+                <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+                <!-- / product-thumbnail-slider -->
+              </div>
+              <div class="col-md-12 col-lg-10">
+                <!-- product-large-slider -->
+                <div class="swiper product-large-slider swiper-fade swiper-initialized swiper-horizontal swiper-watch-progress swiper-backface-hidden">
+                  <div class="swiper-wrapper" id="swiper-wrapper-fa36df0903567dda" aria-live="polite">
+                    <div class="swiper-slide swiper-slide-visible swiper-slide-active" style="width: 423px; opacity: 1; transform: translate3d(0px, 0px, 0px);" role="group" aria-label="1 / 5">
+                      <div class="image-zoom" data-scale="2.5" data-image="{{single_prodt.images.url}}"><img src="{{single_prodt.image.url}}" alt="product-large" class="img-fluid"></div>
+                    </div>
+                    <div class="swiper-slide swiper-slide-next" style="width: 423px; opacity: 0; transform: translate3d(-423px, 0px, 0px);" role="group" aria-label="2 / 5">
+                      <div class="image-zoom" data-scale="2.5" data-image="{{single_prodt.image.url}}"><img src="{{single_prodt.image.url}}" alt="product-large" class="img-fluid"></div>
+                    </div>
+                    <div class="swiper-slide" style="width: 423px; opacity: 0; transform: translate3d(-846px, 0px, 0px);" role="group" aria-label="3 / 5">
+                      <div class="image-zoom" data-scale="2.5" data-image="{{single_prodt.image.url}}"><img src="{{single_prodt.image.url}}" alt="product-large" class="img-fluid"></div>
+                    </div>
+                    <div class="swiper-slide" style="width: 423px; opacity: 0; transform: translate3d(-1269px, 0px, 0px);" role="group" aria-label="4 / 5">
+                      <div class="image-zoom" data-scale="2.5" data-image="{{single_prodt.image.url}}"><img src="{{single_prodt.image.url}}" alt="product-large" class="img-fluid"></div>
+                    </div>
+                    <div class="swiper-slide" role="group" aria-label="5 / 5" style="width: 423px; opacity: 0; transform: translate3d(-1692px, 0px, 0px);">
+                      <div class="image-zoom" data-scale="2.5" data-image="{{single_prodt.image.url}}"><img src="{{single_prodt.image.url}}" alt="product-large" class="img-fluid"></div>
+                    </div>
+                  </div>
+                  <div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal"><span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button" aria-label="Go to slide 1" aria-current="true"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 2"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 3"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 4"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 5"></span></div>
+                <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+                <!-- / product-large-slider -->
+              </div>
+            </div>
+          </div> <!--tommy-watch-->
+          
+          <form action="{% url 'add_cart' single_prodt.id %}" method="post"> <!--for get size and color selection we need GET & POST request .. so we use here form for that -->
+            {% csrf_token %}
+          <div class="col-lg-5">
+            <div class="product-info">
+              <div class="element-header">
+                <h2 itemprop="name" style="font-size: 3rem;text-transform: capitalize;font-weight: 700;position: relative;color: #12263a;margin: 1rem 0;"> {{single_prodt.product_name}}
+                <span style="content: '';position: absolute;left: 0;bottom: 0;height: 4px;width: 80px;background: #12263a;display: block;"></span>
+                </h2>
+                <a href="#" style="text-decoration: none;text-transform: uppercase;font-weight: 400;font-size: 0.9rem;display: inline-block;margin-bottom: 0.5rem;background: #256eff;color: #fff;padding: 0 0.3rem;transition: all 0.5s ease;"onmouseover="this.style.opacity='0.9';"onmouseout="this.style.opacity='1';">Visit The Nearest Store</a>
+
+                <div class="rating-container d-flex gap-0 align-items-center">
+                  <span class="rating me-2">
+                    <svg width="24" height="24" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                    <svg width="24" height="24" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                    <svg width="24" height="24" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                    <svg width="24" height="24" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                    <svg width="24" height="24" class="text-warning"><use xlink:href="#star-half"></use></svg>
+                  </span>
+                  <span class="rating-count">{{single_prodt.averageReview}}</span>
+                </div>
+              </div>
+              <div class="product-price pt-3 pb-3">
+                <strong class="text-primary display-6 fw-bold">${{single_prodt.price}}</strong><del class="ms-2">$940.00</del>
+              </div>
+              <p>{{single_prodt.description}}</p>
+              <div class="cart-wrap py-4">
+                <div class="color-options pb-3">
+                  <div class="color-toggle" data-option-index="0">
+                    <h6 class="item-title text-uppercase text-dark">Color:</h6>
+
+                    {% for i in single_prodt.variation_set.colors %} <!--set.colors means : this query will bring all the data from the variations which is color category-->
+                    <input type="radio" class="btn-check" name="color" id="option5" autocomplete="off" checked="" required>
+                    <label class="btn" for="option5">{{ i.variation_value | capfirst }}</label>
+                    {% endfor %}
+
+                  </div>
+                </div>
+                <div class="swatch" data-option-index="1">
+                  <h6 class="item-title text-uppercase text-dark">Size:</h6>
+
+                    {% for i in single_prodt.variation_set.sizes %}
+                    <input type="radio" class="btn-check" name="size" id="option9" autocomplete="off" checked="" required>
+                    <label class="btn" for="option9">{{ i.variation_value | capfirst }}</label> <!-- | capfirst : it means first letter will be in capital letter -->
+                    {% endfor %}
+
+                </div>
+                <div class="product-quantity pt-3">
+                  <div class="stock-number text-dark"><em>{{ single_prodt.stock }} in stock </em></div>
+                  <div class="stock-button-wrap">
+
+                    {% if single_prodt.stock <= 0  %} <!-- this comes from views.py context-->
+                    <h5  class=" btn btn-dark py-3 px-4 text-uppercase mt-3 ">Out of Stock</h5>
+                    {% else %}
+
+                      {% if in_cart %} <!--if item is added to cart it wil  show added to cart -->
+                    <div class="qty-button d-flex flex-wrap pt-3 ">
+                      <a href="{% url 'mycart' %}" > <button type="submit" class="btn btn-primary py-3 px-4 text-uppercase me-3 mt-3">View cart</button></a>
+                      <a href="#qty-button"><button type="submit" name="add-to-cart" value="1269" class="btn btn-dark py-3 px-4 text-uppercase mt-3 "> Added to cart </svg></button></a>
+                    </div>
+
+                      {% else %}
+                    <div class="input-group product-qty" style="max-width: 150px;">
+                      <span class="input-group-btn">
+                          <button type="button" class="quantity-left-minus btn btn-light btn-number" data-type="minus" data-field="">
+                            <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
+                          </button>
+                      </span>
+                      
+                      <input type="text" id="quantity" name="quantity" class="form-control input-number text-center" value="1" min="1" max="100">
+                      <span class="input-group-btn">
+                        <button type="button" class="quantity-right-plus btn btn-light btn-number" data-type="plus" data-field="">
+                          <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
+                        </button>
+                      </span>
+                    </div>
+                    <div class="qty-button d-flex flex-wrap pt-3 ">
+                      <button type="submit" class="btn btn-primary py-3 px-4 text-uppercase me-3 mt-3">Buy now</button>
+                      <button type="submit" name="add-to-cart" value="1269" class="btn btn-outline-dark py-3 px-4 text-uppercase mt-3 "> Add to cart </svg></button>
+                      <!-- In form case, anchor tag & href will not work properly.. so we have to use Button & type submit in form and pass the href link to the form > action attribut.   -->
+                    </div>
+                  </div>
+                    {% endif %}
+                      {% endif %}
+
+
+                </div>
+              </div>
+              <div class="meta-product py-2">
+                <div class="meta-item d-flex align-items-baseline">
+                  <h6 class="item-title no-margin pe-2">SKU:</h6>
+                  <span>1223</span>
+                </div>
+                <div class="meta-item d-flex align-items-baseline">
+                  <h6 class="item-title no-margin pe-2">Category:</h6>
+                  <a href="#">Watch</a>, <a href="#"> Screen touch</a>
+                </div>
+                <div class="meta-item d-flex align-items-baseline">
+                  <h6 class="item-title no-margin pe-2">Tags:</h6>
+                  <a href="#">Classic</a>, <a href="#"> Modern</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          </form>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="product-info-tabs py-5">
+      <div class="container-lg">
+        <div class="row">
+          <div>
+              <div class="nav nav-pills justify-content-center" id="v-pills-tab" role="tablist" aria-orientation="horizontal">
+                <button class="nav-link text-start active" id="v-pills-description-tab" data-bs-toggle="pill" data-bs-target="#v-pills-description" type="button" role="tab" aria-controls="v-pills-description" aria-selected="true">Description</button>
+                <button class="nav-link text-start" id="v-pills-additional-tab" data-bs-toggle="pill" data-bs-target="#v-pills-additional" type="button" role="tab" aria-controls="v-pills-additional" aria-selected="false" tabindex="-1">Additional Information</button>
+                <button class="nav-link text-start" id="v-pills-reviews-tab" data-bs-toggle="pill" data-bs-target="#v-pills-reviews" type="button" role="tab" aria-controls="v-pills-reviews" aria-selected="false" tabindex="-1">Customer Reviews</button>
+              </div>
+                <div class="tab-content py-4" id="v-pills-tabContent">
+                  <!-- Product discription  -->
+                  <div class="tab-pane fade show active" id="v-pills-description" role="tabpanel" aria-labelledby="v-pills-description-tab" tabindex="0">
+                    <h5>Product Description</h5>
+                      <div class="text-gray-700">
+                        <p class="mb-4">Uninhibited carnally hired played in whimpered dear gorilla koala depending and much yikes off far quetzal goodness and from for grimaced goodness unaccountably and meadowlark near unblushingly crucial scallop tightly neurotic hungrily some and dear furiously this apart.</p>
+                        <p class="mb-4">Spluttered narrowly yikes left moth in yikes bowed this that grizzly much hello on spoon-fed that alas rethought much decently richly and wow against the frequent fluidly at formidable acceptably flapped besides and much circa far over the bucolically hey precarious goldfinch mastodon goodness gnashed a jellyfish and one however because.</p>
+                        <ul class="product-more-infor mt-8 mb-4">
+                            <li class="flex"><span class="w-1/3">Type Of Packing</span><span>Bottle</span></li>
+                            <!-- <hr class="my-4 border-gray-300" /> -->
+                            <li class="flex"><span class="w-1/3">Color</span><span>Green, Pink, Powder Blue, Purple</span></li>
+                            <li class="flex"><span class="w-1/3">Quantity Per Case</span><span>100ml</span></li>
+                            <li class="flex"><span class="w-1/3">Ethyl Alcohol</span><span>70%</span></li>
+                            <li class="flex"><span class="w-1/3">Piece In One</span><span>Carton</span></li>
+                        </ul>
+                        <hr class="my-4 border-gray-300" />
+                        <p class="mb-4">Laconic overheard dear woodchuck wow this outrageously taut beaver hey hello far meadowlark imitatively egregiously hugged that yikes minimally unanimous pouted flirtatiously as beaver beheld above forward energetic across this jeepers beneficently cockily less a the raucously that magic upheld far so the this where crud then below after jeez enchanting drunkenly more much wow callously irrespective limpet.</p>
+                        <h4 class="mt-8 mb-4 text-lg font-semibold">Packaging & Delivery</h4>
+                        <!-- <hr class="my-4 border-gray-300" /> -->
+                        <p class="mb-4">Less lion goodness that euphemistically robin expeditiously bluebird smugly scratched far while thus cackled sheepishly rigid after due one assenting regarding censorious while occasional or this more crane went more as this less much amid overhung anathematic because much held one exuberantly sheep goodness so where rat wry well concomitantly.</p>
+                        <p class="mb-4">Scallop or far crud plain remarkably far by thus far iguana lewd precociously and and less rattlesnake contrary caustic wow this near alas and next and pled the yikes articulate about as less cackled dalmatian in much less well jeering for the thanks blindly sentimental whimpered less across objectively fanciful grimaced wildly some wow and rose jeepers outgrew lugubrious luridly irrationally attractively dachshund.</p>
+                        <h4 class="mt-8 mb-4 text-lg font-semibold">Suggested Use</h4>
+                        <ul class="product-more-infor mt-4 mb-4">
+                            <li>Refrigeration not necessary.</li>
+                            <li>Stir before serving</li>
+                        </ul>
+                        <h4 class="mt-8 mb-4 text-lg font-semibold">Other Ingredients</h4>
+                        <ul class="product-more-infor mt-4 mb-4">
+                            <li>Organic raw pecans, organic raw cashews.</li>
+                            <li>This butter was produced using a LTG (Low Temperature Grinding) process</li>
+                            <li>Made in machinery that processes tree nuts but does not process peanuts, gluten, dairy or soy</li>
+                        </ul>
+                        <h4 class="mt-8 mb-4 text-lg font-semibold">Warnings</h4>
+                        <ul class="product-more-infor mt-4">
+                            <li>Oil separation occurs naturally. May contain pieces of shell.</li>
+                        </ul>
+                      </div>
+                  </div>
+
+                  <!-- Additional info -->
+                  <div class="tab-pane fade" id="v-pills-additional" role="tabpanel" aria-labelledby="v-pills-additional-tab" tabindex="0">
+                    <table class="w-full text-sm">
+                        <tbody>
+                            <tr class="border-b"><th class="w-1/3 py-2">Stand Up</th><td><p>35″L x 24″W x 37-45″H (front to back wheel)</p></td></tr>
+                            <tr class="border-b"><th class="w-1/3 py-2">Folded (w/o wheels)</th><td><p>32.5″L x 18.5″W x 16.5″H</p></td></tr>
+                            <tr class="border-b"><th class="w-1/3 py-2">Folded (w/ wheels)</th><td><p>32.5″L x 24″W x 18.5″H</p></td></tr>
+                            <tr class="border-b"><th class="w-1/3 py-2">Door Pass Through</th><td><p>24</p></td></tr>
+                            <tr class="border-b"><th class="w-1/3 py-2">Frame</th><td><p>Aluminum</p></td></tr>
+                            <tr class="border-b"><th class="w-1/3 py-2">Weight (w/o wheels)</th><td><p>20 LBS</p></td></tr>
+                            <tr class="border-b"><th class="w-1/3 py-2">Weight Capacity</th><td><p>60 LBS</p></td></tr>
+                            <tr class="border-b"><th class="w-1/3 py-2">Width</th><td><p>24″</p></td></tr>
+                            <tr class="border-b"><th class="w-1/3 py-2">Handle height (ground to handle)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><td><p>37-45″</p></td></tr>
+                            <tr class="border-b"><th class="w-1/3 py-2">Wheels</th><td><p>12″ air / wide track slick tread</p></td></tr>
+                            <tr class="border-b"><th class="w-1/3 py-2">Seat back height</th><td><p>21.5″</p></td></tr>
+                            <tr class="border-b"><th class="w-1/3 py-2">Head room (inside canopy)</th><td><p>25″</p></td></tr>
+                            <tr class="border-b"><th class="w-1/3 py-2">Color</th><td><p>Black, Blue, Red, White</p></td></tr>
+                            <tr><th class="w-1/3 py-2">Size</th><td><p>M, S</p></td></tr>
+                        </tbody>
+                    </table> 
+                  </div>
+
+                  <!-- Product Review -->
+                  <div class="tab-pane fade" id="v-pills-reviews" role="tabpanel" aria-labelledby="v-pills-reviews-tab" tabindex="0">
+                    <h3>Customer Reviews ( {{single_prodt.averageReview}} )</h3><br>
+                    <!-- for -->
+                    {% for review in reviews %}
+                    <div class="review-box d-flex flex-wrap">
+                      <div class="col-lg-6 d-flex flex-wrap gap-3"> <!-- give a scroll css to this section -->
+                        <div class="col-md-2">
+                          <div class="image-holder">
+                            <img src="images/reviewer-1.jpg" alt="review" class="img-fluid rounded-circle">
+                          </div>
+                        </div>
+                        <div class="col-md-8">
+                          <div class="review-content">
+                            <div class="rating-container d-flex align-items-center">
+                              <span class="rating me-2 rating-starr " >
+                                <i class="fa fa-star {% if review.rating == 0.5 %}-half-o{% elif review.rating < 1 %}-o {% endif %}" aria-hidden="true"></i>
+                                <i class="fa fa-star {% if review.rating == 1.5 %}-half-o{% elif review.rating < 2 %}-o {% endif %}" aria-hidden="true"></i>
+                                <i class="fa fa-star {% if review.rating == 2.5 %}-half-o{% elif review.rating < 3 %}-o {% endif %}" aria-hidden="true"></i>
+                                <i class="fa fa-star {% if review.rating == 3.5 %}-half-o{% elif review.rating < 4 %}-o {% endif %}" aria-hidden="true"></i>
+                                <i class="fa fa-star {% if review.rating == 4.5 %}-half-o{% elif review.rating < 5 %}-o {% endif %}" aria-hidden="true"></i>
+                              </span>
+                              <span class="rating-count">{{review.rating}}</span>
+                            </div>
+                            <div class="review-header">
+                              <span class="author-name"> {{review.user.full_name}}</span>
+                              <span class="review-date">– {{review.updated_at}}</span>
+                            </div>
+                            <h5>{{review.subject}}</h5>
+                            <p>{{review.review}}</p>
+                            <!-- <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. adipisci. Quisquam molestiae ex distinctio obcaecati a laudantium, harum soluta, delectus architecto dolorum eaam!</p> -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {% endfor %}
+                    <!--endf-->
+
+                    
+                    <!-- Add a Review   -->
+                    <div class="add-review mt-3">
+                      <h3>Add a review</h3>
+                      <p>Your email address will not be published. Required fields are marked *</p>
+                      <form action="{% url 'submit_review' single_prodt.id %}" method="POST" id="form" class="form-group">
+                        {% csrf_token %}
+                          <div class="pb-3">
+                            <div class="review-rating">
+                              <span><b>Your rating *</b></span><br>
+                              <div class="rate">
+                                <input type="radio" name="rating" id="rating10" value="5" required />
+                                <label for="rating10" title="5"></label>
+
+                                <input type="radio" name="rating" id="rating9" value="4.5" required />
+                                <label for="rating9" title="4.5" class="half"></label>
+
+                                <input type="radio" name="rating" id="rating8" value="4" required />
+                                <label for="rating8" title="4"></label>
+
+                                <input type="radio" name="rating" id="rating7" value="3.5" required />
+                                <label for="rating7" title="3.5" class="half"></label>
+
+                                <input type="radio" name="rating" id="rating6" value="3" required />
+                                <label for="rating6" title="3"></label>
+
+                                <input type="radio" name="rating" id="rating5" value="2.5" required />
+                                <label for="rating5" title="2.5" class="half"></label>
+
+                                <input type="radio" name="rating" id="rating4" value="2" required />
+                                <label for="rating4" title="2"></label>
+
+                                <input type="radio" name="rating" id="rating3" value="1.5" required />
+                                <label for="rating3" title="1.5" class="half"></label>
+
+                                <input type="radio" name="rating" id="rating2" value="1" required />
+                                <label for="rating2" title="1"></label>
+
+                                <input type="radio" name="rating" id="rating1" value="0.5" required />
+                                <label for="rating1" title="0.5" class="half"></label>
+                              </div>
+                            </div>
+                          </div>
+                        
+                          <div class="pb-3">
+                            <input type="file" class="form-control" data-text="Choose your file">
+                          </div>
+
+                          <div class="pb-3">
+                            <label><b>Review Title *</b></label>
+                            <input type="text" name="subject" id="" class="form-control" placeholder="Subject" >
+                          </div>
+
+                          <div class="pb-3">
+                            <label><b>Product Review *</b></label>
+                            <textarea class="form-control" placeholder="Write your review here" name="review" rows="4"></textarea>
+                          </div>
+
+                          <!-- <div class="pb-3">
+                            <label>Your Name *</label>
+                            <input type="text" name="name" placeholder="Write your name here" class="form-control">
+                          </div>
+
+                          <div class="pb-3">
+                            <label>Your Email *</label>
+                            <input type="text" name="email" placeholder="Write your email here" class="form-control">
+                          </div>
+
+                          <div class="pb-3">
+                            <label>
+                              <input type="checkbox" required="">
+                              <span class="label-body">Save my name, email, and website in this browser for the next
+                                time.</span>
+                            </label>
+                          </div> -->
+                        {% if user.is_authenticated %}
+                          {% if orderproduct %}
+                            <button type="submit" name="submit" class="btn btn-dark btn-large text-uppercase w-100">Submit</button>
+                          {% else %}
+                              <p>You must purchase this product to post a review.</p>
+                          {% endif %}
+
+                        {% else %}
+                            <p>You must be logged in to post a review. <span><a href="{% url 'signin' %}" style="color: #3871e1; text-decoration: none;">Sign In</a></span></p>
+                        {% endif %}
+                      </form>
+                    </div><br>
+                    {% include 'includes/alerts.html' %}
+                  </div>
+                </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+
+    <section id="related-products" class="products-carousel">
+      <div class="container-lg overflow-hidden py-5">
+        <div class="row">
+          <div class="col-md-12">
+
+            <div class="section-header d-flex flex-wrap justify-content-between my-4">
+              
+              <h2 class="section-title">Related Products</h2>
+
+              <div class="d-flex align-items-center">
+                <a href="{% url 'store' %}" class="btn btn-primary me-2">View All</a>
+                <div class="swiper-buttons">
+                  <button class="swiper-prev products-carousel-prev btn btn-primary swiper-button-disabled" disabled="" tabindex="-1" aria-label="Previous slide" aria-controls="swiper-wrapper-be5f483f2dfc26fb" aria-disabled="true">❮</button>
+                  <button class="swiper-next products-carousel-next btn btn-primary" tabindex="0" aria-label="Next slide" aria-controls="swiper-wrapper-be5f483f2dfc26fb" aria-disabled="false">❯</button>
+                </div>  
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+
+            <div class="swiper swiper-initialized swiper-horizontal swiper-backface-hidden">
+              <div class="swiper-wrapper" id="swiper-wrapper-be5f483f2dfc26fb" aria-live="polite">
+                                
+                <div class="product-item swiper-slide swiper-slide-active" style="width: 205.5px; margin-right: 30px;" role="group" aria-label="1 / 9">
+                  <figure>
+                    <a href="{{i.single_product_url}}" title="Product Title">
+                      <img src="{% static 'images/product-thumb-10.png' %}" alt="Product Thumbnail" class="tab-image">
+                    </a>
+                  </figure>
+                  <div class="d-flex flex-column text-center">
+                    <h3 class="fs-6 fw-normal">Greek Style Plain Yogurt</h3>
+                    <div>
+                      <span class="rating">
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-half"></use></svg>
+                      </span>
+                      <span>(222)</span>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center gap-2">
+                      <del>$24.00</del>
+                      <span class="text-dark fw-semibold">$18.00</span>
+                      <span class="badge border border-dark-subtle rounded-0 fw-normal px-1 fs-7 lh-1 text-body-tertiary">10% OFF</span>
+                    </div>
+                    <div class="button-area p-3 pt-0">
+                      <div class="row g-1 mt-2">
+                        <div class="col-3"><input type="number" name="quantity" class="form-control border-dark-subtle input-number quantity" value="1"></div>
+                        <div class="col-7"><a href="#" class="btn btn-primary rounded-1 p-2 fs-7 btn-cart"><svg width="18" height="18"><use xlink:href="#cart"></use></svg> Add to Cart</a></div>
+                        <div class="col-2"><a href="#" class="btn btn-outline-dark rounded-1 p-2 fs-6"><svg width="18" height="18"><use xlink:href="#heart"></use></svg></a></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="product-item swiper-slide swiper-slide-next" style="width: 205.5px; margin-right: 30px;" role="group" aria-label="2 / 9">
+                  <figure>
+                    <a href="single-product.html" title="Product Title">
+                      <img src="{% static 'images/product-thumb-11.png' %}" alt="Product Thumbnail" class="tab-image">
+                    </a>
+                  </figure>
+                  <div class="d-flex flex-column text-center">
+                    <h3 class="fs-6 fw-normal">Pure Squeezed No Pulp Orange Juice</h3>
+                    <div>
+                      <span class="rating">
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-half"></use></svg>
+                      </span>
+                      <span>(222)</span>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center gap-2">
+                      <del>$24.00</del>
+                      <span class="text-dark fw-semibold">$18.00</span>
+                      <span class="badge border border-dark-subtle rounded-0 fw-normal px-1 fs-7 lh-1 text-body-tertiary">10% OFF</span>
+                    </div>
+                    <div class="button-area p-3 pt-0">
+                      <div class="row g-1 mt-2">
+                        <div class="col-3"><input type="number" name="quantity" class="form-control border-dark-subtle input-number quantity" value="1"></div>
+                        <div class="col-7"><a href="#" class="btn btn-primary rounded-1 p-2 fs-7 btn-cart"><svg width="18" height="18"><use xlink:href="#cart"></use></svg> Add to Cart</a></div>
+                        <div class="col-2"><a href="#" class="btn btn-outline-dark rounded-1 p-2 fs-6"><svg width="18" height="18"><use xlink:href="#heart"></use></svg></a></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="product-item swiper-slide" style="width: 205.5px; margin-right: 30px;" role="group" aria-label="3 / 9">
+                  <figure>
+                    <a href="single-product.html" title="Product Title">
+                      <img src="{% static 'images/product-thumb-12.png' %}" alt="Product Thumbnail" class="tab-image">
+                    </a>
+                  </figure>
+                  <div class="d-flex flex-column text-center">
+                    <h3 class="fs-6 fw-normal">Fresh Oranges</h3>
+                    <div>
+                      <span class="rating">
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-half"></use></svg>
+                      </span>
+                      <span>(222)</span>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center gap-2">
+                      <del>$24.00</del>
+                      <span class="text-dark fw-semibold">$18.00</span>
+                      <span class="badge border border-dark-subtle rounded-0 fw-normal px-1 fs-7 lh-1 text-body-tertiary">10% OFF</span>
+                    </div>
+                    <div class="button-area p-3 pt-0">
+                      <div class="row g-1 mt-2">
+                        <div class="col-3"><input type="number" name="quantity" class="form-control border-dark-subtle input-number quantity" value="1"></div>
+                        <div class="col-7"><a href="#" class="btn btn-primary rounded-1 p-2 fs-7 btn-cart"><svg width="18" height="18"><use xlink:href="#cart"></use></svg> Add to Cart</a></div>
+                        <div class="col-2"><a href="#" class="btn btn-outline-dark rounded-1 p-2 fs-6"><svg width="18" height="18"><use xlink:href="#heart"></use></svg></a></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="product-item swiper-slide" style="width: 205.5px; margin-right: 30px;" role="group" aria-label="4 / 9">
+                  <figure>
+                    <a href="single-product.html" title="Product Title">
+                      <img src="{% static 'images/product-thumb-13.png' %}" alt="Product Thumbnail" class="tab-image">
+                    </a>
+                  </figure>
+                  <div class="d-flex flex-column text-center">
+                    <h3 class="fs-6 fw-normal">Gourmet Dark Chocolate Bars</h3>
+                    <div>
+                      <span class="rating">
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-half"></use></svg>
+                      </span>
+                      <span>(222)</span>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center gap-2">
+                      <del>$24.00</del>
+                      <span class="text-dark fw-semibold">$18.00</span>
+                      <span class="badge border border-dark-subtle rounded-0 fw-normal px-1 fs-7 lh-1 text-body-tertiary">10% OFF</span>
+                    </div>
+                    <div class="button-area p-3 pt-0">
+                      <div class="row g-1 mt-2">
+                        <div class="col-3"><input type="number" name="quantity" class="form-control border-dark-subtle input-number quantity" value="1"></div>
+                        <div class="col-7"><a href="#" class="btn btn-primary rounded-1 p-2 fs-7 btn-cart"><svg width="18" height="18"><use xlink:href="#cart"></use></svg> Add to Cart</a></div>
+                        <div class="col-2"><a href="#" class="btn btn-outline-dark rounded-1 p-2 fs-6"><svg width="18" height="18"><use xlink:href="#heart"></use></svg></a></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="product-item swiper-slide" style="width: 205.5px; margin-right: 30px;" role="group" aria-label="5 / 9">
+                  <figure>
+                    <a href="single-product.html" title="Product Title">
+                      <img src="{% static 'images/product-thumb-13.png' %}" alt="Product Thumbnail" class="tab-image">
+                    </a>
+                  </figure>
+                  <div class="d-flex flex-column text-center">
+                    <h3 class="fs-6 fw-normal">Fresh Green Celery</h3>
+                    <div>
+                      <span class="rating">
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-half"></use></svg>
+                      </span>
+                      <span>(222)</span>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center gap-2">
+                      <del>$24.00</del>
+                      <span class="text-dark fw-semibold">$18.00</span>
+                      <span class="badge border border-dark-subtle rounded-0 fw-normal px-1 fs-7 lh-1 text-body-tertiary">10% OFF</span>
+                    </div>
+                    <div class="button-area p-3 pt-0">
+                      <div class="row g-1 mt-2">
+                        <div class="col-3"><input type="number" name="quantity" class="form-control border-dark-subtle input-number quantity" value="1"></div>
+                        <div class="col-7"><a href="#" class="btn btn-primary rounded-1 p-2 fs-7 btn-cart"><svg width="18" height="18"><use xlink:href="#cart"></use></svg> Add to Cart</a></div>
+                        <div class="col-2"><a href="#" class="btn btn-outline-dark rounded-1 p-2 fs-6"><svg width="18" height="18"><use xlink:href="#heart"></use></svg></a></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="product-item swiper-slide" style="width: 205.5px; margin-right: 30px;" role="group" aria-label="6 / 9">
+                  <figure>
+                    <a href="single-product.html" title="Product Title">
+                      <img src="{% static 'images/product-thumb-15.png' %}" alt="Product Thumbnail" class="tab-image">
+                    </a>
+                  </figure>
+                  <div class="d-flex flex-column text-center">
+                    <h3 class="fs-6 fw-normal">Sandwich Bread</h3>
+                    <div>
+                      <span class="rating">
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-half"></use></svg>
+                      </span>
+                      <span>(222)</span>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center gap-2">
+                      <del>$24.00</del>
+                      <span class="text-dark fw-semibold">$18.00</span>
+                      <span class="badge border border-dark-subtle rounded-0 fw-normal px-1 fs-7 lh-1 text-body-tertiary">10% OFF</span>
+                    </div>
+                    <div class="button-area p-3 pt-0">
+                      <div class="row g-1 mt-2">
+                        <div class="col-3"><input type="number" name="quantity" class="form-control border-dark-subtle input-number quantity" value="1"></div>
+                        <div class="col-7"><a href="#" class="btn btn-primary rounded-1 p-2 fs-7 btn-cart"><svg width="18" height="18"><use xlink:href="#cart"></use></svg> Add to Cart</a></div>
+                        <div class="col-2"><a href="#" class="btn btn-outline-dark rounded-1 p-2 fs-6"><svg width="18" height="18"><use xlink:href="#heart"></use></svg></a></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="product-item swiper-slide" style="width: 205.5px; margin-right: 30px;" role="group" aria-label="7 / 9">
+                  <figure>
+                    <a href="single-product.html" title="Product Title">
+                      <img src="{% static 'images/product-thumb-16.png' %}" alt="Product Thumbnail" class="tab-image">
+                    </a>
+                  </figure>
+                  <div class="d-flex flex-column text-center">
+                    <h3 class="fs-6 fw-normal">Honeycrisp Apples</h3>
+                    <div>
+                      <span class="rating">
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-half"></use></svg>
+                      </span>
+                      <span>(222)</span>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center gap-2">
+                      <del>$24.00</del>
+                      <span class="text-dark fw-semibold">$18.00</span>
+                      <span class="badge border border-dark-subtle rounded-0 fw-normal px-1 fs-7 lh-1 text-body-tertiary">10% OFF</span>
+                    </div>
+                    <div class="button-area p-3 pt-0">
+                      <div class="row g-1 mt-2">
+                        <div class="col-3"><input type="number" name="quantity" class="form-control border-dark-subtle input-number quantity" value="1"></div>
+                        <div class="col-7"><a href="#" class="btn btn-primary rounded-1 p-2 fs-7 btn-cart"><svg width="18" height="18"><use xlink:href="#cart"></use></svg> Add to Cart</a></div>
+                        <div class="col-2"><a href="#" class="btn btn-outline-dark rounded-1 p-2 fs-6"><svg width="18" height="18"><use xlink:href="#heart"></use></svg></a></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="product-item swiper-slide" style="width: 205.5px; margin-right: 30px;" role="group" aria-label="8 / 9">
+                  <figure>
+                    <a href="single-product.html" title="Product Title">
+                      <img src="{% static 'images/product-thumb-17.png' %}" alt="Product Thumbnail" class="tab-image">
+                    </a>
+                  </figure>
+                  <div class="d-flex flex-column text-center">
+                    <h3 class="fs-6 fw-normal">Whole Wheat Sandwich Bread</h3>
+                    <div>
+                      <span class="rating">
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-half"></use></svg>
+                      </span>
+                      <span>(222)</span>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center gap-2">
+                      <del>$24.00</del>
+                      <span class="text-dark fw-semibold">$18.00</span>
+                      <span class="badge border border-dark-subtle rounded-0 fw-normal px-1 fs-7 lh-1 text-body-tertiary">10% OFF</span>
+                    </div>
+                    <div class="button-area p-3 pt-0">
+                      <div class="row g-1 mt-2">
+                        <div class="col-3"><input type="number" name="quantity" class="form-control border-dark-subtle input-number quantity" value="1"></div>
+                        <div class="col-7"><a href="#" class="btn btn-primary rounded-1 p-2 fs-7 btn-cart"><svg width="18" height="18"><use xlink:href="#cart"></use></svg> Add to Cart</a></div>
+                        <div class="col-2"><a href="#" class="btn btn-outline-dark rounded-1 p-2 fs-6"><svg width="18" height="18"><use xlink:href="#heart"></use></svg></a></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="product-item swiper-slide" role="group" aria-label="9 / 9" style="width: 205.5px; margin-right: 30px;">
+                  <figure>
+                    <a href="single-product.html" title="Product Title">
+                      <img src="{% static 'images/product-thumb-18.png' %}" alt="Product Thumbnail" class="tab-image">
+                    </a>
+                  </figure>
+                  <div class="d-flex flex-column text-center">
+                    <h3 class="fs-6 fw-normal">Honeycrisp Apples</h3>
+                    <div>
+                      <span class="rating">
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
+                        <svg width="18" height="18" class="text-warning"><use xlink:href="#star-half"></use></svg>
+                      </span>
+                      <span>(222)</span>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center gap-2">
+                      <del>$24.00</del>
+                      <span class="text-dark fw-semibold">$18.00</span>
+                      <span class="badge border border-dark-subtle rounded-0 fw-normal px-1 fs-7 lh-1 text-body-tertiary">10% OFF</span>
+                    </div>
+                    <div class="button-area p-3 pt-0">
+                      <div class="row g-1 mt-2">
+                        <div class="col-3"><input type="number" name="quantity" class="form-control border-dark-subtle input-number quantity" value="1"></div>
+                        <div class="col-7"><a href="#" class="btn btn-primary rounded-1 p-2 fs-7 btn-cart"><svg width="18" height="18"><use xlink:href="#cart"></use></svg> Add to Cart</a></div>
+                        <div class="col-2"><a href="#" class="btn btn-outline-dark rounded-1 p-2 fs-6"><svg width="18" height="18"><use xlink:href="#heart"></use></svg></a></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                  
+              </div>
+            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+            <!-- / products-carousel -->
+
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ================================================================================ -->
+    <script>
+// Quantity Selector
+        const qtyDown = document.querySelector('.qty-down');
+        const qtyUp = document.querySelector('.qty-up');
+        const qtyVal = document.querySelector('.qty-val');
+
+        function updateQuantity(delta) {
+            try {
+                let value = parseInt(qtyVal.textContent);
+                value = Math.max(1, value + delta);
+                qtyVal.textContent = value;
+                qtyVal.setAttribute('aria-label', `Quantity: ${value}`);
+            } catch (error) {
+                console.error('Quantity update failed:', error);
+            }
+        }
+
+        qtyDown.addEventListener('click', (e) => {
+            e.preventDefault();
+            updateQuantity(-1);
+        });
+
+        qtyUp.addEventListener('click', (e) => {
+            e.preventDefault();
+            updateQuantity(1);
+        });
+    </script>
+</body>
+
+    {% endblock %}
+

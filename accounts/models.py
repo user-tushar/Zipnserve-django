@@ -1,0 +1,96 @@
+from django.db import models
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager # we have to import these 2 things.
+# "AbstractBaseUser" is for cretae account
+# "BaseUserManager" is for manage user & superuser login
+
+
+# Create your models here.
+
+class MyAccountManager(BaseUserManager):
+
+    # normal user login
+    def create_user(self, first_name, last_name, username, email, password=None):
+        if not email:
+            raise ValueError('user must have an email address')
+
+        if not username:
+            raise ValueError('user must have an username')
+        
+        user = self.model (
+            email = self.normalize_email(email),
+            username = username,
+            first_name = first_name,
+            last_name = last_name,
+        )
+
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+    
+    # super user login
+    def create_superuser(self, first_name, last_name, email, username, password):
+        user = self.create_user(
+            email = self.normalize_email(email),
+            username = username,
+            password = password,
+            first_name = first_name,
+            last_name  =  last_name,
+        )
+        user.is_admin = True
+        user.is_active = True
+        user.is_staff = True
+        user.is_superadmin = True
+        user.save(using=self._db)
+        return user
+
+# you don't need to remember all ... just visit once Django documentation ... there's written everything.
+
+
+
+class Account(AbstractBaseUser):
+    first_name      = models.CharField(max_length=50)
+    last_name       = models.CharField(max_length=50)
+    username        = models.CharField(max_length=50, unique=True)
+    email           = models.EmailField(max_length=100, unique=True)
+    phone_number    = models.CharField(max_length=10)
+
+    # required
+    date_joined     = models.DateTimeField(auto_now_add=True)
+    last_login      = models.DateTimeField(auto_now_add=True)
+    is_admin        = models.BooleanField(default=False)
+    is_staff        = models.BooleanField(default=False)
+    is_active       = models.BooleanField(default=False) # if i turn into true .. it will allow all ppl to use app after log in ... since it is false .. so here we did a little work .. ... we will send a activation link to the new user which contain a token then the acc. will be activated but only super user is active and allowed to use the app .
+    is_superadmin   = models.BooleanField(default=False)
+    # When we are creating our custom user model above fields are mandatory.
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username','first_name','last_name']
+
+    objects = MyAccountManager()
+
+    def full_name(self):
+        return f'{self.first_name} {self.last_name}'
+
+    def __str__(self):  # string Representatio of our object model in admin pannel
+        return self.email # insted the object name display as email name
+    
+    def has_perm(self, perm, obj=None):
+        return self.is_admin
+    
+    def has_module_perms(self, add_label):
+        return True
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(Account, on_delete=models.CASCADE)
+    address1 = models.CharField(blank=True, max_length=100)
+    address2 = models.CharField(blank=True, max_length=100)
+    profile_picture = models.ImageField(blank=True, upload_to='images/userprofile')
+    city = models.CharField(blank=True, max_length=20)
+    state = models.CharField(blank=True, max_length=20)
+    country = models.CharField(blank=True, max_length=20)
+
+    def __str__(self):
+        return self.user.first_name
+    
+    def full_address(self):
+        return f'{self.address1} {self.address2}'

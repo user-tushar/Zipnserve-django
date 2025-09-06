@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment Form</title>
+
+    <!-- Bootstrap CSS (5.3.3) -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <!-- Font Awesome CSS -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        background-color: #f5eee7;
+        font-family: "Poppins", sans-serif;
+        font-weight: 300;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .card {
+        border: none;
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      .card-header {
+        padding: 0.5rem 1rem;
+        background-color: rgba(0, 0, 0, 0.03);
+        border-bottom: none;
+      }
+
+      .btn-light {
+        width: 100%;
+        text-align: left;
+        padding: 15px;
+        border-radius: 0;
+        background-color: #fff;
+        border: 1px solid #eee;
+      }
+
+      .btn-light:focus {
+        color: #212529;
+        background-color: #e2e6ea;
+        border-color: #dae0e5;
+        box-shadow: 0 0 0 0.2rem rgba(216, 217, 219, 0.5);
+      }
+
+      .form-control {
+        height: 50px;
+        border: 2px solid #eee;
+        border-radius: 6px;
+        font-size: 14px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .form-control:focus {
+        color: #495057;
+        background-color: #fff;
+        border-color: #039be5;
+        outline: 0;
+        box-shadow: none;
+      }
+
+      .input {
+        position: relative;
+        width: 100%;
+      }
+
+      .input i {
+        position: absolute;
+        top: 50%;
+        left: 15px;
+        transform: translateY(-50%);
+        color: #989898;
+        font-size: 16px;
+      }
+
+      .input input {
+        padding-left: 40px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .card-text {
+        font-size: 13px;
+        margin-bottom: 8px;
+        display: block;
+      }
+
+      .certificate-text {
+        font-size: 12px;
+        display: block;
+        margin-top: 10px;
+      }
+
+      .payment-card-body {
+        padding: 20px !important;
+      }
+
+      .accordion-button:not(.collapsed) {
+        background-color: #f8f9fa;
+        color: #212529;
+      }
+
+      .payment-option {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+        padding: 15px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .payment-option input[type="radio"] {
+        margin: 0 10px 0 0;
+        cursor: pointer;
+      }
+
+      .payment-option label {
+        font-size: 16px;
+        font-weight: 500;
+        margin: 0;
+        cursor: pointer;
+      }
+
+      .card-logos {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-left: 10px;
+      }
+
+      .card-logos img {
+        height: 22px;
+        object-fit: contain;
+      }
+
+      .add-card {
+        font-size: 12px;
+        color: #1565c0;
+        text-decoration: none;
+        margin-top: 5px;
+        display: block;
+        width: 100%;
+      }
+
+      .add-card:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 576px) {
+        .container {
+          padding: 10px;
+        }
+        .card {
+          max-width: 100%;
+        }
+        .form-control {
+          font-size: 12px;
+          height: 45px;
+        }
+        .input i {
+          font-size: 14px;
+          left: 12px;
+        }
+        .input input {
+          padding-left: 35px;
+        }
+        .payment-option {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .card-logos {
+          margin-left: 0;
+          margin-top: 5px;
+        }
+        .payment-option label {
+          font-size: 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row g-3">
+        <div class="col-12">
+          <span class="fw-medium">Payment Method</span>
+          <div class="card">
+            <div class="accordion" id="paymentAccordion">
+              <!-- PayPal Section -->
+              <div class="card">
+                <div class="card-header p-0" id="headingPaypal">
+                  <h2 class="mb-0">
+                    <button
+                      class="btn btn-light accordion-button"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapsePaypal"
+                      aria-expanded="false"
+                      aria-controls="collapsePaypal"
+                    >
+                      <div
+                        class="d-flex align-items-center justify-content-between w-100"
+                      >
+                        <span>Paypal</span>
+                        <img
+                          src="https://i.imgur.com/7kQEsHU.png"
+                          width="30"
+                          alt="PayPal"
+                        />
+                      </div>
+                    </button>
+                  </h2>
+                </div>
+                <div
+                  id="collapsePaypal"
+                  class="accordion-collapse collapse"
+                  aria-labelledby="headingPaypal"
+                  data-bs-parent="#paymentAccordion"
+                >
+                  <div class="card-body">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Paypal email"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Credit Card Section -->
+              <div class="card">
+                <div class="card-header p-0" id="headingCreditCard">
+                  <h2 class="mb-0">
+                    <button
+                      class="btn btn-light accordion-button"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseCreditCard"
+                      aria-expanded="true"
+                      aria-controls="collapseCreditCard"
+                    >
+                      <div class="payment-option">
+                        <input type="radio" name="payment" id="card" checked />
+                        <label for="card"><b>Credit or debit card</b></label>
+                        <div class="card-logos">
+                          <img
+                            src="https://i.imgur.com/2ISgYja.png"
+                            alt="Visa"
+                          />
+                          <img
+                            src="https://i.imgur.com/W1vtnOV.png"
+                            alt="Mastercard"
+                          />
+                          <img
+                            src="https://i.imgur.com/35tC99g.png"
+                            alt="Amex"
+                            style="width: 64px; height: 22px"
+                          />
+                        </div>
+                        <a href="#" class="add-card"
+                          >Add a credit or debit card | ZipnServe accepts all
+                          major & cards</a
+                        >
+                      </div>
+                    </button>
+                  </h2>
+                </div>
+                <div
+                  id="collapseCreditCard"
+                  class="accordion-collapse collapse show"
+                  aria-labelledby="headingCreditCard"
+                  data-bs-parent="#paymentAccordion"
+                >
+                  <div class="card-body payment-card-body">
+                    <span class="card-text">Card Number</span>
+                    <div class="input">
+                      <i class="fa fa-credit-card"></i>
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="0000 0000 0000 0000"
+                      />
+                    </div>
+                    <div class="row mt-3 mb-3">
+                      <div class="col-md-6">
+                        <span class="card-text">Expiry Date</span>
+                        <div class="input">
+                          <i class="fa fa-calendar"></i>
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="MM/YY"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <span class="card-text">CVC/CVV</span>
+                        <div class="input">
+                          <i class="fa fa-lock"></i>
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="000"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <span class="text-muted certificate-text"
+                      ><i class="fa fa-lock"></i> Your transaction is secured
+                      with SSL certificate</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
