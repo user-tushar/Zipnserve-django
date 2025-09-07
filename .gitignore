@@ -175,3 +175,6 @@ cython_debug/
 
 # Safe Code folders
 zz safe folder/
+
+# private files
+Security Data.lock/
