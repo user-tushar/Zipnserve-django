@@ -1,0 +1,21 @@
+<span class="input-group-btn">
+  <a href="{% url 'remove_cart' i.product.id i.id %}" class="quantity-left-minus btn btn-light btn-number">
+    <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
+  </a>
+</span>
+
+<input type="text" name="quantity" class="form-control input-number text-center quantity-input" value="{{i.quantity}}">
+
+<span class="input-group-btn">
+  <form action="{% url 'add_cart' i.product.id %}" method="POST">
+    {% csrf_token %}
+    {% for item in i.variations.all %}
+      <input type="hidden" name="{{ item.variation_category|lower }}" value="{{ item.variation_value|capfirst }}">
+    {% endfor %}
+    <button type="submit" class="quantity-right-plus btn btn-light btn-number">
+      <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
+    </button>
+  </form>
+</span>
+
+<!-- Testing Purpose ........✅ -->
