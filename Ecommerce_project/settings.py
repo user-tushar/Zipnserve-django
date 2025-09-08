@@ -64,7 +64,7 @@ MIDDLEWARE = [
 SESSION_EXPIRE_SECONDS = 60 # 3600 for 1 hour , 60 for 1 min
 # after 1 minute it will automatically log you out
 SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
-SESSION_TIMEOUT_REDIRECT = 'account/signin'
+SESSION_TIMEOUT_REDIRECT = '/account/signin'
 
 ROOT_URLCONF = 'Ecommerce_project.urls'
 
