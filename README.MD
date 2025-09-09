@@ -195,5 +195,5 @@ I enjoy working across the stack — from designing clean **frontend interfaces*
 Smooth Scrolling, Paginator smoothness,Fix  Security Issues, Admin Pannel Security, Preloader Issues, Responsiveness for all kind of devices, Still there is an issue with Payment gateway ... i'll check it and fix it asap .
 
 
-![Logo](static/images/mainlogo.png)
+![Logo](mainlogo.png)
 
