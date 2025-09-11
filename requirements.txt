@@ -10,3 +10,5 @@ pillow
 requests
 # pip install django-admin-thumbnails
 django-admin-thumbnails
+# pip install python-decouple
+python-decouple
